@@ -33,7 +33,16 @@ h1 {
   margin-bottom: 15px;
   background-color: #e5e5e5;
   color: #ffa69e;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
 }
+
+.screen p{
+  font-size: 2.5rem;
+}
+
+.numbers{}
 
 .num--container {
   display: flex;

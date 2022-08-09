@@ -1,4 +1,4 @@
-const btnsNum = document.querySelectorAll(".btns-num");
+const btns = document.querySelectorAll(".btns");
 const screen = document.querySelector(".screen");
 
 const numbers = [];
@@ -25,6 +25,7 @@ const operate = function (str, a, b) {
     return add(a, b);
   } else if (str === "-") {
     return subtract(a, b);
+    54;
   } else if (str === "*") {
     return multiply(a, b);
   } else if (str === "/") {
@@ -33,17 +34,17 @@ const operate = function (str, a, b) {
 };
 
 const showNumbers = function (value) {
-  screen.textContent = "";
-  screen.textContent = value;
-  numbers.push(+(value));
-  console.log(numbers)
+  const div = document.createElement("div");
+  div.classList.add("numbers");
+  div.innerHTML = `<P>${value}</p>`;
+  screen.appendChild(div);
+  screen.style.fontSize = "2.5rem";
 };
 
-btnsNum.forEach((btn) => {
+btns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     console.log(e.target.innerText);
     const data = e.target.innerText;
     showNumbers(data);
   });
 });
-
