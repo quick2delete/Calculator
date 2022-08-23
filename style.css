@@ -42,7 +42,13 @@ h1 {
   font-size: 2.5rem;
 }
 
-.numbers{}
+.numbers{
+  padding-top: 5px;
+}
+
+/* .numbers:nth-child(last) {
+  padding-right: 5px;
+} */
 
 .num--container {
   display: flex;
