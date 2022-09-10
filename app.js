@@ -3,47 +3,41 @@ const operatorBtns = document.querySelectorAll(".operator-btns");
 const screen = document.querySelector(".screen");
 const equalBtn = document.querySelector(".equal-btn");
 
-let numArray = [];
 let operatorArray = [];
+let numArray = [];
+const operators = ["+", "-", "/", "*"];
+let num1;
+let num2;
+let operator;
 
 // Math Functions
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
 
-const operate = (a, b, operator) => {
+const operate = (a, b, str) => {
   if (str === "+") {
-    return add(a, b);
+    return a + b;
   }
   if (str === "-") {
-    return subtract(a, b);
+    return a - b;
   }
   if (str === "*") {
-    return multiply(a, b);
+    return a * b;
   }
   if (str === "/") {
-    return divide(a, b);
+    return a / b;
   }
 };
 
 const showNumbers = (data) => {
-
   screen.textContent += data;
   screen.style.fontSize = "2.5rem";
-
   numArray.push(screen.textContent);
-
   const poppedStr = numArray.pop();
-
   const numStr = poppedStr.split(/[+*\/-]/);
-
+  console.log(poppedStr);
   console.log(numStr);
-  console.log(screen.textContent);
-
-  // console.log(numArray);
-  return numStr;
-  // return numArray;
+  num1 = Number(numStr[0]);
+  num2 = Number(numStr[1]);
+  console.log(num1, num2);
 };
 
 const showOperators = (data) => {
@@ -51,25 +45,13 @@ const showOperators = (data) => {
   screen.style.fontSize = "2.5rem";
   operatorArray.push(data);
   console.log(operatorArray);
-  return operatorArray;
+  operator = operatorArray[0];
+  console.log(operator);
 };
 
 const showEqual = (data) => {
   screen.textContent += data;
   screen.style.fontSize = "2.5rem";
-};
-
-const calNumbers = (data1, data2) => {
-  const array1 = showNumbers();
-  const array2 = showOperators();
-
-  for (i = 0; i < array1.length; i++) {
-    for (j = 0; j < array2.length; j++) {
-      operate(parseInt(array1[i], parseInt(array2[i + 1], array2[i])));
-    }
-  }
-
-  console.log(array1[0], array1[1]);
 };
 
 // calNumbers();
@@ -89,10 +71,8 @@ operatorBtns.forEach((btn) => {
   });
 });
 
-equalBtn.addEventListener("click", () => {
-  let data = equalBtn.textContent;
-  console.log(data)
-  // showEqual(data);
-  calNumbers();
-  console.log("clicked!");
+equalBtn.addEventListener("click", (e) => {
+  const result = operate(num1, num2, operator);
+  screen.textContent = result;
+  console.log(e);
 });
