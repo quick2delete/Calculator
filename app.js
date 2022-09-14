@@ -3,9 +3,8 @@ const operatorBtns = document.querySelectorAll(".operator-btns");
 const screen = document.querySelector(".screen");
 const equalBtn = document.querySelector(".equal-btn");
 
-let operatorArray = [];
 let numArray = [];
-const operators = ["+", "-", "/", "*"];
+let operatorArray = [];
 let num1;
 let num2;
 let operator;
@@ -31,13 +30,11 @@ const showNumbers = (data) => {
   screen.textContent += data;
   screen.style.fontSize = "2.5rem";
   numArray.push(screen.textContent);
-  const poppedStr = numArray.pop();
-  const numStr = poppedStr.split(/[+*\/-]/);
-  console.log(poppedStr);
-  console.log(numStr);
-  num1 = Number(numStr[0]);
-  num2 = Number(numStr[1]);
-  console.log(num1, num2);
+  // const poppedStr = numArray.pop();
+  let numStrArray = numArray.pop().split(/[+*\/-]/);
+  // console.log(poppedStr);
+  console.log(numStrArray);
+  return numStrArray;
 };
 
 const showOperators = (data) => {
@@ -45,16 +42,29 @@ const showOperators = (data) => {
   screen.style.fontSize = "2.5rem";
   operatorArray.push(data);
   console.log(operatorArray);
-  operator = operatorArray[0];
-  console.log(operator);
+  return operatorArray;
 };
 
-const showEqual = (data) => {
-  screen.textContent += data;
-  screen.style.fontSize = "2.5rem";
+const calcNumbers = () => {
+  const returnedNum = showNumbers();
+
+  if (returnedNum.length === 2) {
+    num1 = Number(returnedNum[0]);
+    num2 = Number(returnedNum[1]);
+    console.log(num1, num2);
+  }
+
+  if (operatorArray.length === 1) {
+    operator = operatorArray[0];
+
+    const calcResult = operate(num1, num2, operator);
+    console.log(calcResult);
+    returnedNum.unshift(toString(calcResult));
+    operatorArray.pop();
+  }
 };
 
-// calNumbers();
+console.log(calcNumbers());
 
 numBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
@@ -72,7 +82,8 @@ operatorBtns.forEach((btn) => {
 });
 
 equalBtn.addEventListener("click", (e) => {
-  const result = operate(num1, num2, operator);
-  screen.textContent = result;
-  console.log(e);
+  const finalResult = calcNumbers();
+  console.log(finalResult);
+  screen.textContent = finalResult;
+  screen.style.fontSize = "2.5rem";
 });
